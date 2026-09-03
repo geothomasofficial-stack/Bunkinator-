@@ -139,3 +139,102 @@ input[type=range]::-moz-range-thumb {
   cursor: pointer;
   box-shadow: 2px 2px 0px #1B1B2F;
 }
+
+/* Floating Taunts CSS @keyframes animations */
+@keyframes float-taunt-1 {
+  0% {
+    transform: translate(0, 0) rotate(-6deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  85% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(140px, -180px) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float-taunt-2 {
+  0% {
+    transform: translate(0, 0) rotate(5deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  85% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-160px, 150px) rotate(-7deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float-taunt-3 {
+  0% {
+    transform: translate(0, 0) rotate(-4deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  85% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-140px, -170px) rotate(7deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float-taunt-4 {
+  0% {
+    transform: translate(0, 0) rotate(6deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  85% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(160px, 140px) rotate(-6deg);
+    opacity: 0;
+  }
+}
+
+.anim-float-taunt-1 {
+  animation: float-taunt-1 var(--taunt-duration, 25s) ease-in-out infinite;
+  animation-delay: var(--taunt-delay, 0s);
+}
+
+.anim-float-taunt-2 {
+  animation: float-taunt-2 var(--taunt-duration, 28s) ease-in-out infinite;
+  animation-delay: var(--taunt-delay, 0s);
+}
+
+.anim-float-taunt-3 {
+  animation: float-taunt-3 var(--taunt-duration, 22s) ease-in-out infinite;
+  animation-delay: var(--taunt-delay, 0s);
+}
+
+.anim-float-taunt-4 {
+  animation: float-taunt-4 var(--taunt-duration, 26s) ease-in-out infinite;
+  animation-delay: var(--taunt-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-float-taunt-1,
+  .anim-float-taunt-2,
+  .anim-float-taunt-3,
+  .anim-float-taunt-4 {
+    animation: none !important;
+    opacity: 0.9 !important;
+  }
+}

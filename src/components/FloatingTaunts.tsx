@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 
 const QUOTE_POOL = [
   "Today is not your day.",
@@ -35,137 +34,105 @@ const COLOR_PALETTE = [
   { bg: '#FF4B4B', text: '#FFFDF9' }, // Cherry Red
 ];
 
-// Screen region anchors to keep pills in margins away from the central form card
-const MARGIN_REGIONS = [
-  { top: '8%', left: '3%' },
-  { top: '12%', right: '4%' },
-  { top: '34%', left: '2%' },
-  { top: '38%', right: '3%' },
-  { top: '60%', left: '4%' },
-  { top: '65%', right: '2%' },
-  { top: '85%', left: '5%' },
-  { top: '88%', right: '4%' },
+// Screen margin locations (% top & % left) to keep quotes safely in side margins
+const BASE_SLOTS = [
+  { top: '10%', left: '2%' },
+  { top: '15%', left: '78%' },
+  { top: '35%', left: '1.5%' },
+  { top: '40%', left: '80%' },
+  { top: '62%', left: '2.5%' },
+  { top: '68%', left: '77%' },
+  { top: '85%', left: '3%' },
+  { top: '88%', left: '79%' },
 ];
 
-interface TauntPill {
-  id: number;
+interface TauntItem {
+  id: string;
+  slotIdx: number;
   text: string;
   color: typeof COLOR_PALETTE[number];
-  position: typeof MARGIN_REGIONS[number];
-  rotation: number;
-  duration: number;
-  delay: number;
-  floatX: [number, number, number];
-  floatY: [number, number, number];
+  top: string;
+  left: string;
+  animVariant: string;
+  durationSec: number;
+  delaySec: number;
+}
+
+function generateTaunt(slotIdx: number): TauntItem {
+  const quote = QUOTE_POOL[Math.floor(Math.random() * QUOTE_POOL.length)];
+  const color = COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length)];
+  const baseSlot = BASE_SLOTS[slotIdx];
+
+  // Slight jitter around base slot %
+  const topVal = parseFloat(baseSlot.top) + (Math.random() * 6 - 3);
+  const leftVal = parseFloat(baseSlot.left) + (Math.random() * 4 - 2);
+
+  const animVariant = `anim-float-taunt-${Math.floor(Math.random() * 4) + 1}`;
+  const durationSec = Math.floor(18 + Math.random() * 16); // 18s - 34s
+  // Negative delay so they are instantly in motion mid-animation loop on page load
+  const delaySec = -Math.floor(Math.random() * 20);
+
+  return {
+    id: `taunt-${slotIdx}-${Date.now()}-${Math.random()}`,
+    slotIdx,
+    text: quote,
+    color,
+    top: `${topVal}%`,
+    left: `${leftVal}%`,
+    animVariant,
+    durationSec,
+    delaySec,
+  };
 }
 
 export const FloatingTaunts: React.FC = () => {
-  const [taunts, setTaunts] = useState<TauntPill[]>([]);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [taunts, setTaunts] = useState<TauntItem[]>([]);
 
   useEffect(() => {
-    // Check prefers-reduced-motion media query
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
+    // Generate initial 8 taunts
+    const initial = BASE_SLOTS.map((_, idx) => generateTaunt(idx));
+    setTaunts(initial);
 
-    const handleMotionChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-    mediaQuery.addEventListener('change', handleMotionChange);
+    // Staggered respawn timer every 12 seconds to re-randomize one quote slot cleanly
+    const interval = setInterval(() => {
+      setTaunts((prev) => {
+        if (prev.length === 0) return prev;
+        const targetSlot = Math.floor(Math.random() * prev.length);
+        return prev.map((t, idx) => (idx === targetSlot ? generateTaunt(idx) : t));
+      });
+    }, 12000);
 
-    // Generate initial taunt pills
-    const generated: TauntPill[] = MARGIN_REGIONS.map((pos, idx) => {
-      const quote = QUOTE_POOL[Math.floor(Math.random() * QUOTE_POOL.length)];
-      const color = COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length)];
-      const rotation = (Math.random() * 16 - 8); // -8 deg to +8 deg
-      const duration = 18 + Math.random() * 18; // 18s to 36s loop
-      const delay = idx * 0.4;
-      const floatX: [number, number, number] = [
-        0,
-        (Math.random() - 0.5) * 35,
-        (Math.random() - 0.5) * 20,
-      ];
-      const floatY: [number, number, number] = [
-        0,
-        (Math.random() - 0.5) * 35,
-        (Math.random() - 0.5) * 20,
-      ];
-
-      return {
-        id: idx,
-        text: quote,
-        color,
-        position: pos,
-        rotation,
-        duration,
-        delay,
-        floatX,
-        floatY,
-      };
-    });
-
-    setTaunts(generated);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleMotionChange);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-1 overflow-hidden select-none">
-      {taunts.map((taunt) => {
-        // Show 4 pills on mobile, all 8 on md+ screens
-        const isHiddenOnMobile = taunt.id >= 4;
+    <div
+      className="fixed inset-0 pointer-events-none z-1 overflow-hidden select-none"
+      style={{ pointerEvents: 'none' }}
+    >
+      {taunts.map((item) => {
+        // Show slots 0..3 on mobile, all slots 0..7 on md+ screens
+        const isHiddenOnMobile = item.slotIdx >= 4;
 
-        if (prefersReducedMotion) {
-          // Static rendering for reduced motion
-          return (
-            <div
-              key={taunt.id}
-              className={`absolute px-3 py-1.5 rounded-full border-2 border-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] text-xs md:text-sm font-medium transition-opacity ${
-                isHiddenOnMobile ? 'hidden md:inline-flex' : 'inline-flex'
-              }`}
-              style={{
-                ...taunt.position,
-                backgroundColor: taunt.color.bg,
-                color: taunt.color.text,
-                transform: `rotate(${taunt.rotation}deg)`,
-              }}
-            >
-              {taunt.text}
-            </div>
-          );
-        }
-
-        // Gentle floating drift animation
         return (
-          <motion.div
-            key={taunt.id}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-              opacity: [0, 0.9, 0.95, 0.9, 0],
-              x: taunt.floatX,
-              y: taunt.floatY,
-              rotate: [taunt.rotation, taunt.rotation + 4, taunt.rotation - 4, taunt.rotation],
-            }}
-            transition={{
-              duration: taunt.duration,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              ease: 'easeInOut',
-              delay: taunt.delay,
-            }}
-            className={`absolute px-3 py-1.5 rounded-full border-2 border-[#1B1B2F] shadow-[3px_3px_0px_#1B1B2F] text-xs md:text-sm font-medium font-space transition-all ${
+          <div
+            key={item.id}
+            className={`absolute px-3 py-1.5 rounded-full border-2 border-[#1B1B2F] shadow-[3px_3px_0px_#1B1B2F] text-xs md:text-sm font-semibold font-space cursor-default transition-opacity ${item.animVariant} ${
               isHiddenOnMobile ? 'hidden md:inline-flex' : 'inline-flex'
             }`}
-            style={{
-              ...taunt.position,
-              backgroundColor: taunt.color.bg,
-              color: taunt.color.text,
-            }}
+            style={
+              {
+                top: item.top,
+                left: item.left,
+                backgroundColor: item.color.bg,
+                color: item.color.text,
+                '--taunt-duration': `${item.durationSec}s`,
+                '--taunt-delay': `${item.delaySec}s`,
+              } as React.CSSProperties
+            }
           >
-            {taunt.text}
-          </motion.div>
+            {item.text}
+          </div>
         );
       })}
     </div>
