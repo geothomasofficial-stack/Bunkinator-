@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { BunkFormState, BunkResult } from './types/bunkinator';
 import { calculateBunkinatorScore } from './utils/bunkinatorLogic';
 import { BlobBackground } from './components/BlobBackground';
+import { FloatingTaunts } from './components/FloatingTaunts';
 import { Header } from './components/Header';
 import { FormCard } from './components/FormCard';
 import { ResultCard } from './components/ResultCard';
@@ -34,8 +35,9 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen relative flex flex-col justify-between selection:bg-[#FF3E9D] selection:text-white pb-12">
-      {/* Background Animated Blobs */}
+      {/* Background Animated Blobs & Ambient Floating Taunts */}
       <BlobBackground />
+      <FloatingTaunts />
 
       <div className="relative z-10">
         {/* Header */}
