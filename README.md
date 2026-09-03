@@ -5,7 +5,7 @@
 ## Basic Details
 - **Team Name**: Team Unnecessary
 - **Team Members**:
-  - **Team Lead**: Ivin Punnoose Reji - Saintgits College of Applied Science
+  - **Member 1**: Ivin Punnoose Reji - Saintgits College of Applied Science
   - **Member 2**: Geo Thomas Varghese - Saintgits College of Applied Science
 
 ## Project Description
