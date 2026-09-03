@@ -4,6 +4,7 @@ import { calculateBunkinatorScore } from './utils/bunkinatorLogic';
 import { BlobBackground } from './components/BlobBackground';
 import { FloatingTaunts } from './components/FloatingTaunts';
 import { Header } from './components/Header';
+import { HesitatingWalker } from './components/HesitatingWalker';
 import { FormCard } from './components/FormCard';
 import { ResultCard } from './components/ResultCard';
 import { AnimatePresence } from 'framer-motion';
@@ -42,6 +43,9 @@ export const App: React.FC = () => {
       <div className="relative z-10">
         {/* Header */}
         <Header />
+
+        {/* Hesitating Student Animated Hero Illustration */}
+        <HesitatingWalker />
 
         {/* Main Content Area: Form Card or Result Card */}
         <main className="px-4">
