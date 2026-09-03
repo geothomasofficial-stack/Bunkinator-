@@ -216,14 +216,14 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
   if (outcomeId === 'go') {
     return (
       <div className="w-full max-w-2xl mx-auto my-2 px-4 select-none pointer-events-none">
-        <div className="relative w-full h-[180px] md:h-[240px] flex items-center justify-between px-2 md:px-6">
-          {/* Standing Directly at Door Position: right side calculated offset */}
+        <div className="relative w-full h-[180px] md:h-[240px] flex items-center justify-between px-2 md:px-6 overflow-hidden">
+          {/* Standing Directly at Door Position: left: 73% */}
           <div className="relative w-full h-full flex items-end pb-6 z-2">
             <motion.div
-              initial={{ x: '0%' }}
-              animate={{ x: '580%' }}
+              initial={{ left: '5%' }}
+              animate={{ left: '73%' }}
               transition={{ duration: 5, ease: 'easeInOut' }}
-              className="absolute left-6 md:left-12 bottom-6 flex flex-col items-center"
+              className="absolute bottom-6 flex flex-col items-center"
             >
               <div className="px-3 py-1 bg-[#3DDC84] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] mb-1 animate-bounce">
                 Arrived at Class! 🚶‍♂️✅
@@ -263,7 +263,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
   // 5. IDLE TEASER SCENE (outcomeId === null: Continuous wake-up and walk loop ending RIGHT AT COLLEGE DOOR)
   return (
     <div className="w-full max-w-2xl mx-auto my-2 px-4 select-none pointer-events-none">
-      <div className="relative w-full h-[180px] md:h-[240px] flex items-center justify-between px-2 md:px-6">
+      <div className="relative w-full h-[180px] md:h-[240px] flex items-center justify-between px-2 md:px-6 overflow-hidden">
 
         {/* 1. Bed Scene (Left Side - 2s Bed Lying Phase + 1s Wake/Stand Phase) */}
         <motion.div
@@ -297,11 +297,11 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
           </svg>
         </motion.div>
 
-        {/* 2. Character Traversal (Wake at 2s -> 5-Second Slow Walk 3s-8s -> College Arrival 8s-9.4s) */}
+        {/* 2. Character Traversal (Wake at 2s -> 5-Second Slow Walk 3s-8s from left: 5% to left: 73% -> Door Arrival 8s-9.4s) */}
         <div className="relative w-full h-full flex items-end pb-6 z-2">
           <motion.div
             animate={{
-              x: ['0%', '0%', '0%', '580%', '580%', '0%'],
+              left: ['5%', '5%', '5%', '73%', '73%', '5%'],
               opacity: [0, 0, 1, 1, 1, 0],
             }}
             transition={{
@@ -310,7 +310,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
               times: [0, 0.20, 0.28, 0.80, 0.94, 1],
               ease: 'easeInOut',
             }}
-            className="absolute left-6 md:left-12 bottom-6 flex flex-col items-center"
+            className="absolute bottom-6 flex flex-col items-center"
           >
             {/* Boy Character Vector SVG */}
             <motion.div animate={{ y: [0, -5, 0, -5, 0] }} transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}>
