@@ -75,24 +75,24 @@ export const FormCard: React.FC<FormCardProps> = ({ form, setForm, onSubmit }) =
   };
 
   return (
-    <div className="relative z-10 w-full max-w-2xl mx-auto mb-16">
+    <div className="relative z-10 w-full max-w-2xl mx-auto mb-12 sm:mb-16">
       {/* Outer Card Container */}
-      <div className="bg-[#FFFDF9] border-3 border-[#1B1B2F] rounded-[24px] p-5 md:p-8 shadow-[8px_8px_0px_#FF3E9D] transition-shadow duration-300 hover:shadow-[10px_10px_0px_#FF3E9D]">
+      <div className="bg-[#FFFDF9] border-2 sm:border-3 border-[#1B1B2F] rounded-[20px] sm:rounded-[24px] p-4 sm:p-6 md:p-8 shadow-[5px_5px_0px_#FF3E9D] sm:shadow-[8px_8px_0px_#FF3E9D] transition-shadow duration-300 hover:shadow-[7px_7px_0px_#FF3E9D] sm:hover:shadow-[10px_10px_0px_#FF3E9D]">
         
         {/* Progress Bar & Header inside Card */}
-        <div className="flex items-center justify-between mb-6 pb-4 border-b-2 border-[#1B1B2F]/10">
+        <div className="flex items-center justify-between mb-4 sm:mb-6 pb-3 sm:pb-4 border-b-2 border-[#1B1B2F]/10">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-[#FF3E9D] animate-ping" />
-            <h2 className="text-xl md:text-2xl font-bold font-fredoka text-[#1B1B2F]">
+            <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FF3E9D] animate-ping" />
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold font-fredoka text-[#1B1B2F]">
               Answer 6 Quick Questions
             </h2>
           </div>
-          <div className="px-3 py-1 bg-[#FFFDF9] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F]">
+          <div className="px-2.5 sm:px-3 py-0.5 sm:py-1 bg-[#FFFDF9] border-2 border-[#1B1B2F] rounded-full text-[10px] sm:text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F]">
             {completedCount}/6 Completed
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           {/* 1. Sleep Hours */}
           <SleepSlider
             value={form.sleepHours}
@@ -132,7 +132,7 @@ export const FormCard: React.FC<FormCardProps> = ({ form, setForm, onSubmit }) =
             title="Today's Mood"
             options={MOOD_OPTIONS}
             selectedValue={form.mood}
-            gridCols="grid-cols-2 md:grid-cols-3"
+            gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-5"
             onSelect={(val) => setForm((prev) => ({ ...prev, mood: val }))}
           />
 
@@ -142,28 +142,28 @@ export const FormCard: React.FC<FormCardProps> = ({ form, setForm, onSubmit }) =
             title="Average Attendance"
             options={ATTENDANCE_OPTIONS}
             selectedValue={form.attendance}
-            gridCols="grid-cols-1 md:grid-cols-2"
+            gridCols="grid-cols-2"
             onSelect={(val) => setForm((prev) => ({ ...prev, attendance: val }))}
           />
 
           {/* CTA Button Area */}
-          <div className="pt-4 flex flex-col items-center">
+          <div className="pt-3 sm:pt-4 flex flex-col items-center">
             <button
               type="submit"
               disabled={!complete}
-              className={`w-full py-4 px-8 rounded-2xl border-3 border-[#1B1B2F] font-fredoka text-2xl font-extrabold text-white tracking-wide transition-all transform flex items-center justify-center gap-3 ${
+              className={`w-full py-3.5 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl border-2 sm:border-3 border-[#1B1B2F] font-fredoka text-xl sm:text-2xl font-extrabold text-white tracking-wide transition-all transform flex items-center justify-center gap-2 sm:gap-3 ${
                 complete
-                  ? 'bg-[#FF3E9D] shadow-[6px_6px_0px_#1B1B2F] hover:bg-[#ff2590] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_#1B1B2F] active:translate-y-[2px] active:shadow-[2px_2px_0px_#1B1B2F] cursor-pointer'
+                  ? 'bg-[#FF3E9D] shadow-[4px_4px_0px_#1B1B2F] sm:shadow-[6px_6px_0px_#1B1B2F] hover:bg-[#ff2590] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#1B1B2F] active:translate-y-[2px] active:shadow-[2px_2px_0px_#1B1B2F] cursor-pointer'
                   : 'bg-[#1B1B2F]/30 text-[#1B1B2F]/50 shadow-none cursor-not-allowed border-[#1B1B2F]/20'
               }`}
             >
               <span>Predict My Fate 🔮</span>
-              {complete && <Sparkles className="w-7 h-7 text-[#FFD23F] animate-spin" />}
+              {complete && <Sparkles className="w-5 h-5 sm:w-7 sm:h-7 text-[#FFD23F] animate-spin" />}
             </button>
 
             {!complete && (
-              <p className="mt-3 text-xs font-bold text-[#FF4B4B] flex items-center gap-1">
-                <HelpCircle className="w-4 h-4" />
+              <p className="mt-2.5 sm:mt-3 text-[11px] sm:text-xs font-bold text-[#FF4B4B] flex items-center gap-1">
+                <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Please answer all 6 questions above to unlock your prediction!
               </p>
             )}
