@@ -18,16 +18,16 @@ export const HesitatingWalker: React.FC = () => {
     };
   }, []);
 
-  // Static reduced motion fallback: boy standing proudly at the college door
+  // Static reduced motion fallback: boy standing right next to the college door (No card box)
   if (prefersReducedMotion) {
     return (
-      <div className="w-full max-w-2xl mx-auto my-4 px-4 flex justify-center">
-        <div className="relative w-full h-[170px] md:h-[240px] bg-[#FFFDF9] border-3 border-[#1B1B2F] rounded-3xl shadow-[5px_5px_0px_#1B1B2F] overflow-hidden flex items-center justify-between px-8 md:px-16">
-          {/* Ground Line */}
-          <div className="absolute bottom-5 left-6 right-6 h-[2px] border-t-2 border-dashed border-[#1B1B2F]/30" />
+      <div className="w-full max-w-2xl mx-auto my-4 px-4 flex justify-center pointer-events-none select-none">
+        <div className="relative w-full h-[170px] md:h-[240px] flex items-center justify-between px-6 md:px-12">
+          {/* Subtle Ground Line */}
+          <div className="absolute bottom-6 left-4 right-4 h-[2px] border-t-2 border-dashed border-[#1B1B2F]/30" />
 
-          {/* Student at College Door */}
-          <div className="relative flex items-center justify-end w-full gap-4 pr-4">
+          {/* Student Standing Right Next to College Door */}
+          <div className="relative flex items-end justify-end w-full gap-1 pr-2 pb-6">
             {/* Boy Character */}
             <svg width="70" height="120" viewBox="0 0 70 120" fill="none">
               {/* Backpack */}
@@ -47,13 +47,13 @@ export const HesitatingWalker: React.FC = () => {
             </svg>
 
             {/* College Building */}
-            <svg width="110" height="140" viewBox="0 0 110 140" fill="none">
-              <rect x="10" y="45" width="90" height="90" rx="6" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
-              <polygon points="4,45 55,10 106,45" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="3" />
-              <line x1="55" y1="10" x2="55" y2="-4" stroke="#1B1B2F" strokeWidth="2.5" />
-              <polygon points="55,-4 70,2 55,8" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2" />
-              <circle cx="55" cy="65" r="11" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
-              <rect x="40" y="88" width="30" height="47" fill="#1B1B2F" rx="3" />
+            <svg width="120" height="150" viewBox="0 0 120 150" fill="none" className="w-[90px] md:w-[125px] h-[115px] md:h-[155px]">
+              <rect x="10" y="45" width="100" height="95" rx="6" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
+              <polygon points="4,45 60,10 116,45" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="3" />
+              <line x1="60" y1="10" x2="60" y2="-4" stroke="#1B1B2F" strokeWidth="2.5" />
+              <polygon points="60,-4 76,2 60,8" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2" />
+              <circle cx="60" cy="65" r="12" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
+              <rect x="43" y="92" width="34" height="48" fill="#1B1B2F" rx="4" />
             </svg>
           </div>
         </div>
@@ -62,28 +62,28 @@ export const HesitatingWalker: React.FC = () => {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto my-4 px-4 select-none">
-      {/* Outer Hero Frame */}
-      <div className="relative w-full h-[170px] md:h-[240px] bg-[#FFFDF9] border-3 border-[#1B1B2F] rounded-3xl shadow-[6px_6px_0px_#1B1B2F] overflow-hidden flex items-center justify-between px-4 md:px-8">
+    <div className="w-full max-w-2xl mx-auto my-2 px-4 select-none pointer-events-none">
+      {/* Container: NO Card Frame, NO border, NO background fill, NO shadow */}
+      <div className="relative w-full h-[180px] md:h-[240px] flex items-center justify-between px-2 md:px-6">
 
-        {/* Dashed Ground Path Line */}
-        <div className="absolute bottom-5 left-6 right-6 h-[2px] border-t-2 border-dashed border-[#1B1B2F]/30 z-0" />
+        {/* Subtle Dashed Ground Line */}
+        <div className="absolute bottom-6 left-4 right-4 h-[2px] border-t-2 border-dashed border-[#1B1B2F]/30 z-0" />
 
-        {/* 1. Bed Scene (Left Side) */}
+        {/* 1. Bed Scene (Left Side - 4s Bed Phase + 3s Wake & Rise Phase) */}
         <motion.div
           animate={{
-            opacity: [1, 1, 0, 0, 0, 1],
-            scale: [1, 1, 0.85, 0.85, 0.85, 1],
+            opacity: [1, 1, 1, 0, 0, 0, 1],
+            scale: [1, 1, 1, 0.8, 0.8, 0.8, 1],
           }}
           transition={{
-            duration: 8.5,
+            duration: 13,
             repeat: Infinity,
-            times: [0, 0.22, 0.28, 0.9, 0.95, 1],
+            times: [0, 0.30, 0.45, 0.54, 0.94, 0.97, 1],
             ease: 'easeInOut',
           }}
-          className="absolute left-4 md:left-8 bottom-6 z-1 flex flex-col items-center"
+          className="absolute left-2 md:left-6 bottom-6 z-1 flex flex-col items-center"
         >
-          {/* Zzz Sleeping Bubble */}
+          {/* Zzz Sleeping Bubble in Bed (Phases 1 & 2) */}
           <motion.div
             animate={{
               y: [0, -12, -22],
@@ -91,53 +91,75 @@ export const HesitatingWalker: React.FC = () => {
               scale: [0.8, 1.1, 0.9],
             }}
             transition={{
-              duration: 2,
+              duration: 2.2,
               repeat: Infinity,
               ease: 'easeOut',
             }}
-            className="px-2 py-0.5 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-[11px] font-extrabold text-[#1B1B2F] shadow-[1.5px_1.5px_0px_#1B1B2F] mb-1"
+            className="px-2.5 py-1 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] mb-1"
           >
             Zzz... 🛌
           </motion.div>
 
           {/* Bed Vector SVG */}
-          <svg width="90" height="65" viewBox="0 0 90 65" fill="none" className="w-[70px] md:w-[95px] h-[50px] md:h-[70px]">
+          <svg width="95" height="70" viewBox="0 0 95 70" fill="none" className="w-[75px] md:w-[95px] h-[55px] md:h-[70px]">
             {/* Headboard */}
-            <rect x="4" y="10" width="10" height="50" rx="3" fill="#1B1B2F" />
+            <rect x="4" y="10" width="10" height="54" rx="3" fill="#1B1B2F" />
             {/* Footboard */}
-            <rect x="80" y="28" width="6" height="32" rx="2" fill="#1B1B2F" />
+            <rect x="84" y="28" width="6" height="36" rx="2" fill="#1B1B2F" />
             {/* Bed Frame Base */}
-            <rect x="12" y="38" width="70" height="18" rx="2" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2.5" />
+            <rect x="12" y="40" width="74" height="20" rx="2" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2.5" />
             {/* Pillow */}
-            <rect x="16" y="26" width="22" height="14" rx="4" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2" />
+            <rect x="16" y="28" width="24" height="15" rx="4" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2" />
             {/* Lying Boy Head */}
-            <circle cx="27" cy="30" r="7" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="1.5" />
-            <path d="M22 28 Q27 25 32 28" fill="#1B1B2F" />
+            <circle cx="28" cy="32" r="7.5" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="1.5" />
+            <path d="M22 30 Q28 26 34 30" fill="#1B1B2F" />
             {/* Blanket (Bubblegum Pink #FF3E9D) */}
-            <rect x="36" y="32" width="46" height="24" rx="4" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2.5" />
+            <rect x="36" y="34" width="48" height="26" rx="4" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2.5" />
           </svg>
         </motion.div>
 
-        {/* 2. Character Traversal (Walks Left to Right across full frame) */}
-        <div className="relative w-full h-full flex items-end pb-5 z-2 pointer-events-none">
+        {/* 2. Character Traversal (Boy Walks Left to Right and Ends RIGHT NEXT TO College Door) */}
+        <div className="relative w-full h-full flex items-end pb-6 z-2">
           <motion.div
             animate={{
-              // Sequence: Lying/Stand beside bed -> Walk across -> Stop at College door -> Reset
-              x: ['0%', '0%', '0%', '76%', '76%', '0%'],
-              opacity: [0, 1, 1, 1, 1, 0],
+              // Sequence:
+              // 0.0s-4.0s (0% - 31%): Lying in bed (opacity 0)
+              // 4.0s-7.0s (31% - 54%): Wake & rise beside bed (opacity 1)
+              // 7.0s-11.0s (54% - 85%): Walk across full frame right up to college door (x: 0% -> 84%)
+              // 11.0s-12.5s (85% - 96%): Arrives standing right next to door (x: 84%)
+              // 12.5s-13.0s (96% - 100%): Reset fade back
+              x: ['0%', '0%', '0%', '84%', '84%', '0%'],
+              opacity: [0, 0, 1, 1, 1, 0],
             }}
             transition={{
-              duration: 8.5,
+              duration: 13,
               repeat: Infinity,
-              times: [0, 0.05, 0.22, 0.72, 0.92, 1],
+              times: [0, 0.30, 0.38, 0.85, 0.96, 1],
               ease: 'easeInOut',
             }}
             className="absolute left-6 md:left-12 flex flex-col items-center"
           >
-            {/* Boy Character Vector SVG (Scaled up to ~120px-135px height) */}
+            {/* Intermittent Lingering "Zzz..." Bubble during Walk Phase */}
             <motion.div
               animate={{
-                y: [0, -5, 0, -5, 0],
+                opacity: [0, 0, 1, 0, 1, 0, 0],
+                y: [0, -4, -12, -4, -12, -4, 0],
+              }}
+              transition={{
+                duration: 13,
+                repeat: Infinity,
+                times: [0, 0.55, 0.65, 0.72, 0.80, 0.88, 1],
+                ease: 'easeInOut',
+              }}
+              className="px-2.5 py-1 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] -mb-1 z-10"
+            >
+              Zzz... 😴
+            </motion.div>
+
+            {/* Boy Character Vector SVG (Scaled up ~120px-135px height) */}
+            <motion.div
+              animate={{
+                y: [0, -6, 0, -6, 0],
               }}
               transition={{
                 duration: 0.5,
@@ -205,44 +227,44 @@ export const HesitatingWalker: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* 3. College Building (Right Side - Boy ends directly next to front door) */}
-        <div className="absolute right-3 md:right-6 bottom-4 z-1 flex flex-col items-center">
-          <svg width="120" height="150" viewBox="0 0 120 150" fill="none" className="w-[85px] md:w-[125px] h-[110px] md:h-[155px]">
+        {/* 3. College Building (Right Side - Boy ends RIGHT BESIDE the entrance door) */}
+        <div className="absolute right-1 md:right-4 bottom-5 z-1 flex flex-col items-center">
+          <svg width="125" height="155" viewBox="0 0 125 155" fill="none" className="w-[90px] md:w-[130px] h-[115px] md:h-[160px]">
             {/* Main Building Wall */}
-            <rect x="10" y="45" width="100" height="95" rx="6" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
+            <rect x="10" y="45" width="105" height="98" rx="6" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
 
             {/* School Roof (Grass Green #3DDC84) */}
-            <polygon points="4,45 60,10 116,45" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="3" />
+            <polygon points="4,45 62.5,10 121,45" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="3" />
 
             {/* Flag & Pole */}
-            <line x1="60" y1="10" x2="60" y2="-4" stroke="#1B1B2F" strokeWidth="2.5" />
-            <polygon points="60,-4 76,2 60,8" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2" />
+            <line x1="62.5" y1="10" x2="62.5" y2="-4" stroke="#1B1B2F" strokeWidth="2.5" />
+            <polygon points="62.5,-4 78.5,2 62.5,8" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2" />
 
             {/* Clock Tower Window */}
-            <circle cx="60" cy="65" r="12" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
-            <line x1="60" y1="65" x2="60" y2="58" stroke="#1B1B2F" strokeWidth="2" />
-            <line x1="60" y1="65" x2="65" y2="65" stroke="#1B1B2F" strokeWidth="2" />
+            <circle cx="62.5" cy="65" r="12" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
+            <line x1="62.5" y1="65" x2="62.5" y2="58" stroke="#1B1B2F" strokeWidth="2" />
+            <line x1="62.5" y1="65" x2="67.5" y2="65" stroke="#1B1B2F" strokeWidth="2" />
 
             {/* Front Door Entrance */}
             <motion.rect
-              x="43"
-              y="92"
-              width="34"
-              height="48"
+              x="44"
+              y="93"
+              width="36"
+              height="50"
               fill="#1B1B2F"
               rx="4"
               animate={{
                 fill: ['#1B1B2F', '#1B1B2F', '#3DDC84', '#1B1B2F'],
               }}
               transition={{
-                duration: 8.5,
+                duration: 13,
                 repeat: Infinity,
-                times: [0, 0.7, 0.8, 0.95],
+                times: [0, 0.84, 0.92, 0.98],
               }}
             />
 
             {/* Door Handle */}
-            <circle cx="70" cy="116" r="2" fill="#FFD23F" />
+            <circle cx="72" cy="118" r="2" fill="#FFD23F" />
           </svg>
           <span className="text-xs md:text-sm font-extrabold text-[#1B1B2F] uppercase tracking-wider -mt-1">
             College 🏫
