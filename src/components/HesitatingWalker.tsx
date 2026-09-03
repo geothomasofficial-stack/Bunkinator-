@@ -260,12 +260,12 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
     );
   }
 
-  // 5. IDLE TEASER SCENE (outcomeId === null: Continuous wake & walk loop ending RIGHT AT COLLEGE DOOR)
+  // 5. IDLE TEASER SCENE (outcomeId === null: Continuous wake-up and walk loop ending RIGHT AT COLLEGE DOOR)
   return (
     <div className="w-full max-w-2xl mx-auto my-2 px-4 select-none pointer-events-none">
       <div className="relative w-full h-[180px] md:h-[240px] flex items-center justify-between px-2 md:px-6">
 
-        {/* 1. Bed Scene (Left Side - 4s Bed Phase + 3s Wake Phase) */}
+        {/* 1. Bed Scene (Left Side - 3.8s Lying Phase + 1.7s Sit/Stand Phase) */}
         <motion.div
           animate={{
             opacity: [1, 1, 1, 0, 0, 0, 1],
@@ -274,7 +274,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
           transition={{
             duration: 13,
             repeat: Infinity,
-            times: [0, 0.30, 0.45, 0.54, 0.94, 0.97, 1],
+            times: [0, 0.29, 0.35, 0.44, 0.92, 0.96, 1],
             ease: 'easeInOut',
           }}
           className="absolute left-2 md:left-6 bottom-6 z-1 flex flex-col items-center"
@@ -297,7 +297,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
           </svg>
         </motion.div>
 
-        {/* 2. Character Traversal (Walks Left to Right ending RIGHT BESIDE College Door: calc(100% - 145px)) */}
+        {/* 2. Character Traversal (Visible Sit/Stand at 3.8s -> Smooth Walk 5.5s-10.5s -> Door Arrival 10.5s-12.0s) */}
         <div className="relative w-full h-full flex items-end pb-6 z-2">
           <motion.div
             animate={{
@@ -307,12 +307,12 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
             transition={{
               duration: 13,
               repeat: Infinity,
-              times: [0, 0.30, 0.38, 0.85, 0.96, 1],
+              times: [0, 0.29, 0.35, 0.81, 0.92, 1],
               ease: 'easeInOut',
             }}
             className="absolute bottom-6 flex flex-col items-center"
           >
-            {/* Lingering Zzz Bubble popping up during Walk */}
+            {/* Intermittent Lingering Zzz Bubble popping up during Walk Phase */}
             <motion.div
               animate={{
                 opacity: [0, 0, 1, 0, 1, 0, 0],
@@ -321,7 +321,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
               transition={{
                 duration: 13,
                 repeat: Infinity,
-                times: [0, 0.55, 0.65, 0.72, 0.80, 0.88, 1],
+                times: [0, 0.44, 0.54, 0.64, 0.74, 0.84, 1],
                 ease: 'easeInOut',
               }}
               className="px-2.5 py-1 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] -mb-1 z-10"
@@ -329,8 +329,8 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
               Zzz... 😴
             </motion.div>
 
-            {/* Boy Vector SVG */}
-            <motion.div animate={{ y: [0, -6, 0, -6, 0] }} transition={{ duration: 0.35, repeat: Infinity, ease: 'easeInOut' }}>
+            {/* Boy Character Vector SVG */}
+            <motion.div animate={{ y: [0, -5, 0, -5, 0] }} transition={{ duration: 0.35, repeat: Infinity, ease: 'easeInOut' }}>
               <svg width="70" height="125" viewBox="0 0 70 125" fill="none" className="w-[55px] md:w-[75px] h-[95px] md:h-[130px]">
                 <rect x="6" y="35" width="20" height="35" rx="5" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="3" />
                 <circle cx="38" cy="22" r="16" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
@@ -343,12 +343,12 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
                 {/* Leg Swings */}
                 <motion.line
                   x1="31" y1="89" x2="22" y2="116" stroke="#1B1B2F" strokeWidth="4.5" strokeLinecap="round"
-                  animate={{ x2: [22, 40, 22], y2: [116, 112, 116] }}
+                  animate={{ x2: [20, 42, 20], y2: [116, 112, 116] }}
                   transition={{ duration: 0.35, repeat: Infinity, ease: 'easeInOut' }}
                 />
                 <motion.line
                   x1="45" y1="89" x2="54" y2="116" stroke="#1B1B2F" strokeWidth="4.5" strokeLinecap="round"
-                  animate={{ x2: [54, 30, 54], y2: [112, 116, 112] }}
+                  animate={{ x2: [54, 28, 54], y2: [112, 116, 112] }}
                   transition={{ duration: 0.35, repeat: Infinity, ease: 'easeInOut' }}
                 />
                 {/* Arm Swing */}
@@ -375,7 +375,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
             <motion.rect
               x="44" y="93" width="36" height="50" fill="#1B1B2F" rx="4"
               animate={{ fill: ['#1B1B2F', '#1B1B2F', '#3DDC84', '#1B1B2F'] }}
-              transition={{ duration: 13, repeat: Infinity, times: [0, 0.84, 0.92, 0.98] }}
+              transition={{ duration: 13, repeat: Infinity, times: [0, 0.81, 0.91, 0.98] }}
             />
             <circle cx="72" cy="118" r="2" fill="#FFD23F" />
           </svg>
