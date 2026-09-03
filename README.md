@@ -11,6 +11,9 @@
 ## Project Description
 Bunkinator is a satirical, client-side decision engine that scientifically (and humorously) predicts whether a college student should attend class or bunk today. By evaluating 6 key life metrics—sleep debt, pending assignments, weather conditions, commute distance, mood, and attendance percentage—it calculates your exact chances of showing up and delivers a vibrant, animated verdict with witty advice.
 
+## Live Demo 🌐
+🚀 **Live Web Application**: [https://bunkinator.onrender.com](https://bunkinator.onrender.com)
+
 ## The Problem (that doesn't exist)
 College students waste immense mental energy every morning locked in existential dread over whether to attend an 8 AM lecture or stay in bed, lacking a standardized mathematical algorithm to weigh sleep debt, rain levels, and assignment panic.
 
