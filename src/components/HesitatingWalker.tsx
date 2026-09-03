@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 export const HesitatingWalker: React.FC = () => {
-  const [thoughtState, setThoughtState] = useState<'go' | 'sleep'>('go');
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Check prefers-reduced-motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
 
@@ -15,204 +13,242 @@ export const HesitatingWalker: React.FC = () => {
     };
     mediaQuery.addEventListener('change', handleMotionChange);
 
-    // Thought bubble crossfade interval (runs independently every 3.5 seconds)
-    const interval = setInterval(() => {
-      setThoughtState((prev) => (prev === 'go' ? 'sleep' : 'go'));
-    }, 3500);
-
     return () => {
-      clearInterval(interval);
       mediaQuery.removeEventListener('change', handleMotionChange);
     };
   }, []);
 
+  // Static reduced motion fallback: boy standing proudly at the college door
   if (prefersReducedMotion) {
-    // Reduced motion static view
     return (
-      <div className="w-full max-w-2xl mx-auto my-3 px-4 flex justify-center">
-        <div className="relative w-full h-[100px] md:h-[150px] bg-[#FFFDF9] border-2 border-[#1B1B2F] rounded-2xl shadow-[3px_3px_0px_#1B1B2F] overflow-hidden flex items-center justify-between px-6 md:px-12">
-          {/* Static Student */}
-          <div className="flex items-center gap-3">
-            <svg width="60" height="90" viewBox="0 0 60 90" fill="none">
-              {/* Backpack */}
-              <rect x="8" y="28" width="16" height="24" rx="4" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
-              {/* Head */}
-              <circle cx="28" cy="18" r="12" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2.5" />
-              {/* Hair */}
-              <path d="M18 16 Q28 6 38 16" stroke="#1B1B2F" strokeWidth="3" fill="#1B1B2F" />
-              {/* Torso (Pink Shirt) */}
-              <rect x="20" y="30" width="16" height="26" rx="4" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2.5" />
-              {/* Shorts (Blue) */}
-              <rect x="20" y="56" width="16" height="12" rx="2" fill="#3EC1FF" stroke="#1B1B2F" strokeWidth="2.5" />
-              {/* Static Legs */}
-              <line x1="23" y1="68" x2="19" y2="84" stroke="#1B1B2F" strokeWidth="3" strokeLinecap="round" />
-              <line x1="33" y1="68" x2="37" y2="84" stroke="#1B1B2F" strokeWidth="3" strokeLinecap="round" />
-            </svg>
-            <div className="px-3 py-1.5 bg-white border-2 border-[#1B1B2F] rounded-xl text-xs font-bold flex items-center gap-2 shadow-[2px_2px_0px_#1B1B2F]">
-              <span>Go 🎒</span>
-              <span className="text-gray-400">vs</span>
-              <span>Sleep 🛌</span>
-            </div>
-          </div>
+      <div className="w-full max-w-2xl mx-auto my-4 px-4 flex justify-center">
+        <div className="relative w-full h-[170px] md:h-[240px] bg-[#FFFDF9] border-3 border-[#1B1B2F] rounded-3xl shadow-[5px_5px_0px_#1B1B2F] overflow-hidden flex items-center justify-between px-8 md:px-16">
+          {/* Ground Line */}
+          <div className="absolute bottom-5 left-6 right-6 h-[2px] border-t-2 border-dashed border-[#1B1B2F]/30" />
 
-          {/* Static School */}
-          <svg width="70" height="80" viewBox="0 0 70 80" fill="none">
-            <rect x="10" y="25" width="50" height="50" rx="4" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2.5" />
-            <polygon points="5,25 35,5 65,25" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="2.5" />
-            <rect x="26" y="50" width="18" height="25" fill="#1B1B2F" />
-          </svg>
+          {/* Student at College Door */}
+          <div className="relative flex items-center justify-end w-full gap-4 pr-4">
+            {/* Boy Character */}
+            <svg width="70" height="120" viewBox="0 0 70 120" fill="none">
+              {/* Backpack */}
+              <rect x="6" y="35" width="20" height="35" rx="5" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="3" />
+              {/* Head */}
+              <circle cx="38" cy="22" r="16" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
+              <path d="M24 20 C 26 8, 48 8, 52 20 C 47 16, 29 16, 24 20 Z" fill="#1B1B2F" />
+              <circle cx="44" cy="21" r="2" fill="#1B1B2F" />
+              <path d="M41 27 Q44 30 47 27" stroke="#1B1B2F" strokeWidth="2" strokeLinecap="round" />
+              {/* Torso (Pink) */}
+              <rect x="26" y="38" width="24" height="35" rx="5" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="3" />
+              {/* Shorts (Blue) */}
+              <rect x="26" y="73" width="24" height="16" rx="3" fill="#3EC1FF" stroke="#1B1B2F" strokeWidth="3" />
+              {/* Legs */}
+              <line x1="32" y1="89" x2="32" y2="114" stroke="#1B1B2F" strokeWidth="4.5" strokeLinecap="round" />
+              <line x1="44" y1="89" x2="44" y2="114" stroke="#1B1B2F" strokeWidth="4.5" strokeLinecap="round" />
+            </svg>
+
+            {/* College Building */}
+            <svg width="110" height="140" viewBox="0 0 110 140" fill="none">
+              <rect x="10" y="45" width="90" height="90" rx="6" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
+              <polygon points="4,45 55,10 106,45" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="3" />
+              <line x1="55" y1="10" x2="55" y2="-4" stroke="#1B1B2F" strokeWidth="2.5" />
+              <polygon points="55,-4 70,2 55,8" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2" />
+              <circle cx="55" cy="65" r="11" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
+              <rect x="40" y="88" width="30" height="47" fill="#1B1B2F" rx="3" />
+            </svg>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto my-3 px-4 select-none">
-      <div className="relative w-full h-[120px] md:h-[160px] bg-[#FFFDF9] border-3 border-[#1B1B2F] rounded-2xl shadow-[4px_4px_0px_#1B1B2F] overflow-hidden flex items-center justify-between px-4 md:px-10">
+    <div className="w-full max-w-2xl mx-auto my-4 px-4 select-none">
+      {/* Outer Hero Frame */}
+      <div className="relative w-full h-[170px] md:h-[240px] bg-[#FFFDF9] border-3 border-[#1B1B2F] rounded-3xl shadow-[6px_6px_0px_#1B1B2F] overflow-hidden flex items-center justify-between px-4 md:px-8">
 
-        {/* Path / Ground Line */}
-        <div className="absolute bottom-4 left-6 right-6 h-[2px] bg-[#1B1B2F]/20 border-t-2 border-dashed border-[#1B1B2F]/40" />
+        {/* Dashed Ground Path Line */}
+        <div className="absolute bottom-5 left-6 right-6 h-[2px] border-t-2 border-dashed border-[#1B1B2F]/30 z-0" />
 
-        {/* Walking & Hesitating Student Area */}
-        <div className="relative h-full flex items-center flex-1">
+        {/* 1. Bed Scene (Left Side) */}
+        <motion.div
+          animate={{
+            opacity: [1, 1, 0, 0, 0, 1],
+            scale: [1, 1, 0.85, 0.85, 0.85, 1],
+          }}
+          transition={{
+            duration: 8.5,
+            repeat: Infinity,
+            times: [0, 0.22, 0.28, 0.9, 0.95, 1],
+            ease: 'easeInOut',
+          }}
+          className="absolute left-4 md:left-8 bottom-6 z-1 flex flex-col items-center"
+        >
+          {/* Zzz Sleeping Bubble */}
           <motion.div
             animate={{
-              // Walk right toward school -> Pause & Glances Back -> Continue walk
-              x: ['0%', '42%', '40%', '42%', '85%', '0%'],
-              rotate: [0, 0, -8, 0, 0, 0], // Subtle hesitation glance back over shoulder
+              y: [0, -12, -22],
+              opacity: [0, 1, 0],
+              scale: [0.8, 1.1, 0.9],
             }}
             transition={{
-              duration: 9,
+              duration: 2,
               repeat: Infinity,
-              ease: 'easeInOut',
-              times: [0, 0.4, 0.5, 0.6, 0.9, 1],
+              ease: 'easeOut',
             }}
-            className="relative flex flex-col items-center"
+            className="px-2 py-0.5 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-[11px] font-extrabold text-[#1B1B2F] shadow-[1.5px_1.5px_0px_#1B1B2F] mb-1"
           >
-            {/* Independent Thought Bubble floating above student */}
-            <div className="absolute -top-12 md:-top-14 left-1/2 transform -translate-x-1/2 z-10 pointer-events-none">
-              <AnimatePresence mode="wait">
-                {thoughtState === 'go' ? (
-                  <motion.div
-                    key="thought-go"
-                    initial={{ opacity: 0, scale: 0.5, y: 5 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.5, y: -5 }}
-                    transition={{ duration: 0.35 }}
-                    className="px-2.5 py-1 bg-white border-2 border-[#1B1B2F] rounded-full text-xs font-bold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] flex items-center gap-1 whitespace-nowrap"
-                  >
-                    <span>Class 🎒</span>
-                    <span className="text-[#3DDC84]">✓</span>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="thought-sleep"
-                    initial={{ opacity: 0, scale: 0.5, y: 5 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.5, y: -5 }}
-                    transition={{ duration: 0.35 }}
-                    className="px-2.5 py-1 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-xs font-bold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] flex items-center gap-1 whitespace-nowrap"
-                  >
-                    <span>Bed 🛌</span>
-                    <span>zzz</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              {/* Little thought bubble tail dots */}
-              <div className="w-1.5 h-1.5 bg-white border border-[#1B1B2F] rounded-full mx-auto -mt-0.5" />
-            </div>
+            Zzz... 🛌
+          </motion.div>
 
-            {/* Boy Character Vector SVG */}
+          {/* Bed Vector SVG */}
+          <svg width="90" height="65" viewBox="0 0 90 65" fill="none" className="w-[70px] md:w-[95px] h-[50px] md:h-[70px]">
+            {/* Headboard */}
+            <rect x="4" y="10" width="10" height="50" rx="3" fill="#1B1B2F" />
+            {/* Footboard */}
+            <rect x="80" y="28" width="6" height="32" rx="2" fill="#1B1B2F" />
+            {/* Bed Frame Base */}
+            <rect x="12" y="38" width="70" height="18" rx="2" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2.5" />
+            {/* Pillow */}
+            <rect x="16" y="26" width="22" height="14" rx="4" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2" />
+            {/* Lying Boy Head */}
+            <circle cx="27" cy="30" r="7" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="1.5" />
+            <path d="M22 28 Q27 25 32 28" fill="#1B1B2F" />
+            {/* Blanket (Bubblegum Pink #FF3E9D) */}
+            <rect x="36" y="32" width="46" height="24" rx="4" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2.5" />
+          </svg>
+        </motion.div>
+
+        {/* 2. Character Traversal (Walks Left to Right across full frame) */}
+        <div className="relative w-full h-full flex items-end pb-5 z-2 pointer-events-none">
+          <motion.div
+            animate={{
+              // Sequence: Lying/Stand beside bed -> Walk across -> Stop at College door -> Reset
+              x: ['0%', '0%', '0%', '76%', '76%', '0%'],
+              opacity: [0, 1, 1, 1, 1, 0],
+            }}
+            transition={{
+              duration: 8.5,
+              repeat: Infinity,
+              times: [0, 0.05, 0.22, 0.72, 0.92, 1],
+              ease: 'easeInOut',
+            }}
+            className="absolute left-6 md:left-12 flex flex-col items-center"
+          >
+            {/* Boy Character Vector SVG (Scaled up to ~120px-135px height) */}
             <motion.div
-              animate={{ y: [0, -3, 0, -3, 0] }}
-              transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+              animate={{
+                y: [0, -5, 0, -5, 0],
+              }}
+              transition={{
+                duration: 0.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
             >
-              <svg width="50" height="75" viewBox="0 0 50 75" fill="none" className="w-[40px] md:w-[50px] h-[60px] md:h-[75px]">
-                {/* Backpack (Yellow #FFD23F) */}
-                <rect x="4" y="22" width="14" height="22" rx="4" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
+              <svg width="70" height="125" viewBox="0 0 70 125" fill="none" className="w-[55px] md:w-[75px] h-[95px] md:h-[130px]">
+                {/* Backpack (Zest Yellow #FFD23F) */}
+                <rect x="6" y="35" width="20" height="35" rx="5" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="3" />
 
                 {/* Head */}
-                <circle cx="26" cy="14" r="10" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2.5" />
+                <circle cx="38" cy="22" r="16" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
 
                 {/* Hair */}
-                <path d="M17 13 C 18 5, 33 5, 35 13 C 32 11, 20 11, 17 13 Z" fill="#1B1B2F" />
+                <path d="M24 20 C 26 8, 48 8, 52 20 C 47 16, 29 16, 24 20 Z" fill="#1B1B2F" />
 
-                {/* Face Features (Eye & Smile) */}
-                <circle cx="30" cy="13" r="1.5" fill="#1B1B2F" />
-                <path d="M28 17 Q30 19 32 17" stroke="#1B1B2F" strokeWidth="1.5" strokeLinecap="round" />
+                {/* Face Features */}
+                <circle cx="44" cy="21" r="2" fill="#1B1B2F" />
+                <path d="M41 27 Q44 30 47 27" stroke="#1B1B2F" strokeWidth="2" strokeLinecap="round" />
 
                 {/* Torso (Bubblegum Pink #FF3E9D) */}
-                <rect x="18" y="24" width="16" height="22" rx="4" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2.5" />
+                <rect x="26" y="38" width="24" height="35" rx="5" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="3" />
 
                 {/* Shorts (Sky Blue #3EC1FF) */}
-                <rect x="18" y="46" width="16" height="10" rx="2" fill="#3EC1FF" stroke="#1B1B2F" strokeWidth="2.5" />
+                <rect x="26" y="73" width="24" height="16" rx="3" fill="#3EC1FF" stroke="#1B1B2F" strokeWidth="3" />
 
-                {/* Walking Animated Legs */}
-                <motion.line
-                  x1="21"
-                  y1="56"
-                  x2="15"
-                  y2="70"
-                  stroke="#1B1B2F"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  animate={{ x2: [15, 27, 15], y2: [70, 68, 70] }}
-                  transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
-                />
+                {/* Walking Animated Leg 1 */}
                 <motion.line
                   x1="31"
-                  y1="56"
-                  x2="37"
-                  y2="70"
+                  y1="89"
+                  x2="22"
+                  y2="116"
                   stroke="#1B1B2F"
-                  strokeWidth="3.5"
+                  strokeWidth="4.5"
                   strokeLinecap="round"
-                  animate={{ x2: [37, 23, 37], y2: [68, 70, 68] }}
-                  transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+                  animate={{ x2: [22, 40, 22], y2: [116, 112, 116] }}
+                  transition={{ duration: 0.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+
+                {/* Walking Animated Leg 2 */}
+                <motion.line
+                  x1="45"
+                  y1="89"
+                  x2="54"
+                  y2="116"
+                  stroke="#1B1B2F"
+                  strokeWidth="4.5"
+                  strokeLinecap="round"
+                  animate={{ x2: [54, 30, 54], y2: [112, 116, 112] }}
+                  transition={{ duration: 0.5, repeat: Infinity, ease: 'easeInOut' }}
                 />
 
                 {/* Swinging Arm */}
                 <motion.path
-                  d="M 26 28 L 34 38"
+                  d="M 38 42 L 50 58"
                   stroke="#1B1B2F"
-                  strokeWidth="3"
+                  strokeWidth="4"
                   strokeLinecap="round"
-                  animate={{ d: ['M 26 28 L 34 38', 'M 26 28 L 18 38', 'M 26 28 L 34 38'] }}
-                  transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}
+                  animate={{ d: ['M 38 42 L 50 58', 'M 38 42 L 26 58', 'M 38 42 L 50 58'] }}
+                  transition={{ duration: 0.5, repeat: Infinity, ease: 'easeInOut' }}
                 />
               </svg>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* School Building Vector SVG on the right */}
-        <div className="relative flex flex-col items-center pl-2">
-          <svg width="65" height="85" viewBox="0 0 65 85" fill="none" className="w-[50px] md:w-[65px] h-[65px] md:h-[85px]">
-            {/* Base Wall */}
-            <rect x="6" y="28" width="53" height="52" rx="4" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="2.5" />
+        {/* 3. College Building (Right Side - Boy ends directly next to front door) */}
+        <div className="absolute right-3 md:right-6 bottom-4 z-1 flex flex-col items-center">
+          <svg width="120" height="150" viewBox="0 0 120 150" fill="none" className="w-[85px] md:w-[125px] h-[110px] md:h-[155px]">
+            {/* Main Building Wall */}
+            <rect x="10" y="45" width="100" height="95" rx="6" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
 
             {/* School Roof (Grass Green #3DDC84) */}
-            <polygon points="2,28 32.5,6 63,28" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="2.5" />
+            <polygon points="4,45 60,10 116,45" fill="#3DDC84" stroke="#1B1B2F" strokeWidth="3" />
 
-            {/* Flag Pole & Flag */}
-            <line x1="32.5" y1="6" x2="32.5" y2="-4" stroke="#1B1B2F" strokeWidth="2" />
-            <polygon points="32.5,-4 42,0 32.5,4" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="1.5" />
+            {/* Flag & Pole */}
+            <line x1="60" y1="10" x2="60" y2="-4" stroke="#1B1B2F" strokeWidth="2.5" />
+            <polygon points="60,-4 76,2 60,8" fill="#FF3E9D" stroke="#1B1B2F" strokeWidth="2" />
 
             {/* Clock Tower Window */}
-            <circle cx="32.5" cy="42" r="7" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2" />
-            <line x1="32.5" y1="42" x2="32.5" y2="38" stroke="#1B1B2F" strokeWidth="1.5" />
-            <line x1="32.5" y1="42" x2="35.5" y2="42" stroke="#1B1B2F" strokeWidth="1.5" />
+            <circle cx="60" cy="65" r="12" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="2.5" />
+            <line x1="60" y1="65" x2="60" y2="58" stroke="#1B1B2F" strokeWidth="2" />
+            <line x1="60" y1="65" x2="65" y2="65" stroke="#1B1B2F" strokeWidth="2" />
 
-            {/* School Door Entrance */}
-            <rect x="23" y="55" width="19" height="25" fill="#1B1B2F" rx="2" />
+            {/* Front Door Entrance */}
+            <motion.rect
+              x="43"
+              y="92"
+              width="34"
+              height="48"
+              fill="#1B1B2F"
+              rx="4"
+              animate={{
+                fill: ['#1B1B2F', '#1B1B2F', '#3DDC84', '#1B1B2F'],
+              }}
+              transition={{
+                duration: 8.5,
+                repeat: Infinity,
+                times: [0, 0.7, 0.8, 0.95],
+              }}
+            />
 
             {/* Door Handle */}
-            <circle cx="38" cy="68" r="1" fill="#FFD23F" />
+            <circle cx="70" cy="116" r="2" fill="#FFD23F" />
           </svg>
-          <span className="text-[10px] md:text-xs font-bold text-[#1B1B2F] uppercase tracking-wide -mt-1">
+          <span className="text-xs md:text-sm font-extrabold text-[#1B1B2F] uppercase tracking-wider -mt-1">
             College 🏫
           </span>
         </div>
+
       </div>
     </div>
   );
