@@ -220,10 +220,10 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
           {/* Standing Directly at Door Position: right side calculated offset */}
           <div className="relative w-full h-full flex items-end pb-6 z-2">
             <motion.div
-              initial={{ left: '5%' }}
-              animate={{ left: 'calc(100% - 145px)' }}
-              transition={{ duration: 3.5, ease: 'easeInOut' }}
-              className="absolute bottom-6 flex flex-col items-center"
+              initial={{ x: '0%' }}
+              animate={{ x: '580%' }}
+              transition={{ duration: 5, ease: 'easeInOut' }}
+              className="absolute left-6 md:left-12 bottom-6 flex flex-col items-center"
             >
               <div className="px-3 py-1 bg-[#3DDC84] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] mb-1 animate-bounce">
                 Arrived at Class! 🚶‍♂️✅
@@ -301,7 +301,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
         <div className="relative w-full h-full flex items-end pb-6 z-2">
           <motion.div
             animate={{
-              left: ['2%', '2%', '2%', 'calc(100% - 145px)', 'calc(100% - 145px)', '2%'],
+              x: ['0%', '0%', '0%', '580%', '580%', '0%'],
               opacity: [0, 0, 1, 1, 1, 0],
             }}
             transition={{
@@ -310,7 +310,7 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
               times: [0, 0.20, 0.28, 0.80, 0.94, 1],
               ease: 'easeInOut',
             }}
-            className="absolute bottom-6 flex flex-col items-center"
+            className="absolute left-6 md:left-12 bottom-6 flex flex-col items-center"
           >
             {/* Boy Character Vector SVG */}
             <motion.div animate={{ y: [0, -5, 0, -5, 0] }} transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}>
