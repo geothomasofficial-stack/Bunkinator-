@@ -1,3 +1,5 @@
+<img width="1280" height="640" alt="image" src="https://github.com/user-attachments/assets/be5f90e2-2296-4836-9da8-f973a79f2f6d" />
+
 # Bunkinator 🔮
 
 ## Basic Details
