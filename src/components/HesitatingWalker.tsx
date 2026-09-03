@@ -312,23 +312,6 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
             }}
             className="absolute bottom-6 flex flex-col items-center"
           >
-            {/* Intermittent Lingering Zzz Bubble popping up during Walk Phase */}
-            <motion.div
-              animate={{
-                opacity: [0, 0, 1, 0, 1, 0, 0],
-                y: [0, -4, -12, -4, -12, -4, 0],
-              }}
-              transition={{
-                duration: 13,
-                repeat: Infinity,
-                times: [0, 0.44, 0.54, 0.64, 0.74, 0.84, 1],
-                ease: 'easeInOut',
-              }}
-              className="px-2.5 py-1 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] -mb-1 z-10"
-            >
-              Zzz... 😴
-            </motion.div>
-
             {/* Boy Character Vector SVG */}
             <motion.div animate={{ y: [0, -5, 0, -5, 0] }} transition={{ duration: 0.35, repeat: Infinity, ease: 'easeInOut' }}>
               <svg width="70" height="125" viewBox="0 0 70 125" fill="none" className="w-[55px] md:w-[75px] h-[95px] md:h-[130px]">
