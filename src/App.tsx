@@ -44,8 +44,8 @@ export const App: React.FC = () => {
         {/* Header */}
         <Header />
 
-        {/* Hesitating Student Animated Hero Illustration */}
-        <HesitatingWalker />
+        {/* Hero Illustration reflecting idle state or specific outcome */}
+        <HesitatingWalker outcomeId={result?.outcomeId ?? null} />
 
         {/* Main Content Area: Form Card or Result Card */}
         <main className="px-4">
