@@ -170,7 +170,6 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
               animate={{
                 // Walk right 40% -> Turn around -> Walk back to bed on left
                 left: ['5%', '42%', '42%', '5%'],
-                scaleX: [1, 1, -1, -1],
               }}
               transition={{
                 duration: 6,
@@ -184,7 +183,16 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
               <div className="px-2.5 py-0.5 bg-[#FF4B4B] text-white border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold shadow-[2px_2px_0px_#1B1B2F] mb-1">
                 Nope! Turning back! 🙅
               </div>
-              <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 0.35, repeat: Infinity }}>
+              <motion.div
+                animate={{
+                  y: [0, -6, 0],
+                  scaleX: [1, 1, -1, -1],
+                }}
+                transition={{
+                  y: { duration: 0.35, repeat: Infinity },
+                  scaleX: { duration: 6, repeat: Infinity, repeatDelay: 1, times: [0, 0.45, 0.55, 1] },
+                }}
+              >
                 <svg width="70" height="125" viewBox="0 0 70 125" fill="none" className="w-[55px] md:w-[75px] h-[95px] md:h-[130px]">
                   <rect x="6" y="35" width="20" height="35" rx="5" fill="#FFD23F" stroke="#1B1B2F" strokeWidth="3" />
                   <circle cx="38" cy="22" r="16" fill="#FFFDF9" stroke="#1B1B2F" strokeWidth="3" />
@@ -277,12 +285,12 @@ export const HesitatingWalker: React.FC<HesitatingWalkerProps> = ({ outcomeId })
             times: [0, 0.20, 0.25, 0.35, 0.94, 0.97, 1],
             ease: 'easeInOut',
           }}
-          className="absolute left-2 md:left-6 bottom-6 z-1 flex flex-col items-center"
+          className="absolute left-2 md:left-6 bottom-6 z-1 flex flex-col items-start"
         >
           <motion.div
             animate={{ y: [0, -12, -22], opacity: [0, 1, 0], scale: [0.8, 1.1, 0.9] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
-            className="px-2.5 py-1 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] mb-1"
+            className="px-2.5 py-1 bg-[#3EC1FF] border-2 border-[#1B1B2F] rounded-full text-xs font-extrabold text-[#1B1B2F] shadow-[2px_2px_0px_#1B1B2F] mb-1 ml-2 md:ml-4"
           >
             Zzz... 🛌
           </motion.div>
